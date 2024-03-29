@@ -1,0 +1,8 @@
+path: artifacts/data_ingestion/data
+train: images/train
+val: images/val
+
+
+names:
+  0: body
+  1: face

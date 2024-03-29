@@ -182,3 +182,6 @@ mlruns/
 
 scores.json
 secrets.yaml
+
+runs/
+dvc.lock

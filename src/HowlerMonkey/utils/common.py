@@ -1,15 +1,15 @@
 import os
-from box.exceptions import BoxValueError
 import yaml
-from src.HowlerMonkey import logger
 import json
-import joblib
-from ensure import ensure_annotations
-from box import ConfigBox
-from pathlib import Path
-from typing import Any
 import base64
+import joblib
+from typing import Any
+from pathlib import Path
+from box import ConfigBox
+from ensure import ensure_annotations
+from box.exceptions import BoxValueError
 
+from src.HowlerMonkey import logger
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -155,3 +155,21 @@ def encode_image_into_base64(croppedImagePath: Path) -> str:
     """
     with open(croppedImagePath, "rb") as image_file:
         return base64.b64encode(image_file.read())
+
+
+def get_latest_model(root_path: Path):
+
+    directories = [os.path.join(root_path, d) for d in os.listdir(root_path) if os.path.isdir(os.path.join(root_path, d))]
+
+    latest_directory = sorted(directories, key=os.path.getmtime, reverse=True)[0]
+
+    return os.path.join(latest_directory, 'weights', 'best.pt')
+
+
+def clean_scores(scores: dict) -> dict:
+    new_scores = {}
+    for key, value in scores.items():
+        if 'metrics' in key:
+            new_key = key.split('/')[1].replace('(B)', '')
+            new_scores[new_key] = value
+    return new_scores

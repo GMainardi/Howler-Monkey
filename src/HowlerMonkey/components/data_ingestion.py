@@ -4,7 +4,7 @@ import gdown
 
 
 from src.HowlerMonkey import logger
-from src.HowlerMonkey.config.configuration import DataIngestionConfig
+from src.HowlerMonkey.entity.config_entity import DataIngestionConfig
 
 
 class DataIngestion:

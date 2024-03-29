@@ -7,28 +7,8 @@ data_ingestion:
   local_data_file: artifacts/data_ingestion/howler_data.zip
   unzip_dir: artifacts/data_ingestion
 
-
-prepare_base_model:
-  root_dir: artifacts/prepare_base_model
-  base_model_path: artifacts/prepare_base_model/base_model.pkl
-  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.pkl
-
-prepare_data:
-  root_dir: artifacts/prepare_data
-  prepared_data_path: artifacts/prepare_data/prepared_data.csv
-  base_scaler_path: artifacts/prepare_data/scaler.pkl
-  feature_columns: [
-      blueGold, blueMinionsKilled, blueJungleMinionsKilled, blueAvgLevel, 
-      redGold,  redMinionsKilled,  redJungleMinionsKilled,  redAvgLevel,
-      blueChampKills, blueHeraldKills, blueDragonKills, blueTowersDestroyed,
-      redChampKills, redHeraldKills, redDragonKills, redTowersDestroyed
-  ]
-  target_column: blue_win
-  base_scaler_container: model/scaler.pkl
-
 training:
   root_dir: artifacts/training
-  trained_model_path: artifacts/training/model.pkl
-  trained_model_container: model/model.pkl
+  model_path: artifacts/training/yolov8n.pt
+  data_file_path: config/coco.yaml
 
-  
