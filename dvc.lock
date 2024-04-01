@@ -1,0 +1,73 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: cf2c7212d3ce1ed9c3ccab8c960edf3b
+      size: 346
+    - path: src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: a48c46fc53d9cb21f2559cf10a00c1e5
+      size: 889
+    outs:
+    - path: artifacts/data_ingestion/data
+      hash: md5
+      md5: 0a0085965c4d056aaa5ec73c10d22007.dir
+      size: 8527234
+      nfiles: 29
+  training:
+    cmd: python src/HowlerMonkey/pipeline/stage_02_model_training.py
+    deps:
+    - path: artifacts/data_ingestion/data
+      hash: md5
+      md5: 0a0085965c4d056aaa5ec73c10d22007.dir
+      size: 8527234
+      nfiles: 29
+    - path: config/config.yaml
+      hash: md5
+      md5: cf2c7212d3ce1ed9c3ccab8c960edf3b
+      size: 346
+    - path: src/HowlerMonkey/pipeline/stage_02_model_training.py
+      hash: md5
+      md5: cf6ae279002dae051c7f64cd3d25834f
+      size: 847
+    params:
+      params.yaml:
+        BATCH_SIZE: 16
+        EPOCHS: 1
+    outs:
+    - path: artifacts/training/best.pt
+      hash: md5
+      md5: bcaf97756af920dcbd73b04eec0006e1
+      size: 6230169
+  evaluation:
+    cmd: python src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion/data
+      hash: md5
+      md5: 0a0085965c4d056aaa5ec73c10d22007.dir
+      size: 8527234
+      nfiles: 29
+    - path: artifacts/training/best.pt
+      hash: md5
+      md5: bcaf97756af920dcbd73b04eec0006e1
+      size: 6230169
+    - path: config/config.yaml
+      hash: md5
+      md5: cf2c7212d3ce1ed9c3ccab8c960edf3b
+      size: 346
+    - path: src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
+      hash: md5
+      md5: 828e8b2ace8215408c85ed23b88f53dd
+      size: 858
+    params:
+      params.yaml:
+        BATCH_SIZE: 16
+        EPOCHS: 1
+    outs:
+    - path: scores.json
+      hash: md5
+      md5: d9eab9f4447b09d6fc7080964338ab18
+      size: 106

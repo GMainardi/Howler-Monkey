@@ -3,7 +3,7 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  data_id: 1mIR2ocvXOn2eIVnEUGuaxW5ta3fLoVsx
+  data_id: 17nILb0XH7TQIzdL8IafcGSEOgihGgSAe
   local_data_file: artifacts/data_ingestion/howler_data.zip
   unzip_dir: artifacts/data_ingestion
 

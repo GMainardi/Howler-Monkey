@@ -37,5 +37,11 @@ class Evaluation:
             mlflow.log_metrics(
                 self.scores
             )
-            # Model registry does not work with file store
-            mlflow.log_artifact(get_latest_model(self.config.model_path), "model")
+
+            model = self.load_model(self.config.model_path)
+
+            if tracking_url_type_store != "file":
+                mlflow.sklearn.log_model(model, "model", registered_model_name=self.config.model_name)
+            else:
+                mlflow.sklearn.log_model(model, "model")
+
