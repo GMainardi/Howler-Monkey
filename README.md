@@ -6,7 +6,8 @@ This master's thesis project develops a machine learning model by fine-tuning th
 ## Table of Content
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Local Training](#local-training)
+- [Running the API](#running-the-api)
 - [Contributing](#contributing)
 
   
@@ -122,7 +123,7 @@ git fetch upstream
 git merge upstream/main main
 ```
 
-## Usage
+## Local Training
 
 This project is structured to streamline the process of downloading the necessary dataset files from Google Drive, fine-tuning the YOLO model with these files, and logging the training process using MLflow. To facilitate version control and reproducibility, we use DVC (Data Version Control).
 
@@ -169,6 +170,46 @@ To view the training logs and metrics:
 
 By following these steps, you'll successfully download the required data, fine-tune the YOLO model for howler monkey detection, and log the training process for analysis and reproducibility.
 
+## Running the API
+
+This guide will help you get started with the YOLO Model API, allowing you to process videos and train the model using our FastAPI application.
+
+
+### Getting Started
+
+To run the application, follow these steps:
+
+1. **Start the API Server:** run the following command:
+
+    ```bash
+    uvicorn main:app --reload
+    ```
+
+    The `--reload` flag enables live reloading so the server will automatically restart upon any code changes. This is useful for development.
+
+2. **Access the Application:** Once the server is up and running, you can access the API at:
+
+    ```
+    http://localhost:8000
+    ```
+
+    You should see a message indicating that the YOLO Model API is running.
+
+### Swagger Documentation
+
+FastAPI automatically generates interactive API documentation using Swagger UI. You can access this documentation to test the API endpoints directly from your browser.
+
+1. **Open Swagger UI:** Navigate to the following URL in your web browser:
+
+    ```
+    http://localhost:8000/docs
+    ```
+
+2. **Interact with the API:**
+
+    - **Train the Model:** To initiate model training, use the `/train/` endpoint. Click on the `Try it out` button, execute the request, and you should receive a confirmation message that the model training has started.
+
+    - **Process Videos:** To process a video, use the `/process-video/` endpoint. Click on the `Try it out` button, choose a video file (with a `.mp4` extension) to upload, and execute the request. The API will return the processed video, which you can download.
 
 
 ## Contributing

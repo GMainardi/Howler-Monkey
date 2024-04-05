@@ -4,6 +4,7 @@ stages:
     deps:
       - src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
       - config/config.yaml
+      - config/coco.yaml
     outs:
       - artifacts/data_ingestion/data
 
@@ -13,6 +14,7 @@ stages:
     deps:
       - src/HowlerMonkey/pipeline/stage_02_model_training.py
       - config/config.yaml
+      - config/coco.yaml
       - artifacts/data_ingestion/data
     params:
       - EPOCHS
@@ -28,6 +30,7 @@ stages:
       - config/config.yaml
       - artifacts/data_ingestion/data
       - artifacts/training/best.pt
+      - config/coco.yaml
     params:
       - EPOCHS
       - BATCH_SIZE

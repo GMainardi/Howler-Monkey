@@ -3,10 +3,14 @@ stages:
   data_ingestion:
     cmd: python src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
     deps:
+    - path: config/coco.yaml
+      hash: md5
+      md5: addba1a1b0b5cf07c3bd61307eab1bbd
+      size: 100
     - path: config/config.yaml
       hash: md5
-      md5: cf2c7212d3ce1ed9c3ccab8c960edf3b
-      size: 346
+      md5: 73ff98e0f9cde8a8fcdeb34b4174cf7d
+      size: 442
     - path: src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
       hash: md5
       md5: a48c46fc53d9cb21f2559cf10a00c1e5
@@ -14,60 +18,68 @@ stages:
     outs:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 0a0085965c4d056aaa5ec73c10d22007.dir
-      size: 8527234
-      nfiles: 29
+      md5: 1004bc9ea587ecec9083e12b57ca8840.dir
+      size: 1552063472
+      nfiles: 4296
   training:
     cmd: python src/HowlerMonkey/pipeline/stage_02_model_training.py
     deps:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 0a0085965c4d056aaa5ec73c10d22007.dir
-      size: 8527234
-      nfiles: 29
+      md5: 2fa27c287ef4487de1d4beadfc2503a6.dir
+      size: 1552964278
+      nfiles: 4298
+    - path: config/coco.yaml
+      hash: md5
+      md5: addba1a1b0b5cf07c3bd61307eab1bbd
+      size: 100
     - path: config/config.yaml
       hash: md5
-      md5: cf2c7212d3ce1ed9c3ccab8c960edf3b
-      size: 346
+      md5: 73ff98e0f9cde8a8fcdeb34b4174cf7d
+      size: 442
     - path: src/HowlerMonkey/pipeline/stage_02_model_training.py
       hash: md5
       md5: cf6ae279002dae051c7f64cd3d25834f
       size: 847
     params:
       params.yaml:
-        BATCH_SIZE: 16
-        EPOCHS: 1
+        BATCH_SIZE: 64
+        EPOCHS: 10
     outs:
     - path: artifacts/training/best.pt
       hash: md5
-      md5: bcaf97756af920dcbd73b04eec0006e1
-      size: 6230169
+      md5: f5096e20129b0d5e5090f2f1263f562a
+      size: 6231257
   evaluation:
     cmd: python src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
     deps:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 0a0085965c4d056aaa5ec73c10d22007.dir
-      size: 8527234
-      nfiles: 29
+      md5: 2fa27c287ef4487de1d4beadfc2503a6.dir
+      size: 1552964278
+      nfiles: 4298
     - path: artifacts/training/best.pt
       hash: md5
-      md5: bcaf97756af920dcbd73b04eec0006e1
-      size: 6230169
+      md5: f5096e20129b0d5e5090f2f1263f562a
+      size: 6231257
+    - path: config/coco.yaml
+      hash: md5
+      md5: addba1a1b0b5cf07c3bd61307eab1bbd
+      size: 100
     - path: config/config.yaml
       hash: md5
-      md5: cf2c7212d3ce1ed9c3ccab8c960edf3b
-      size: 346
+      md5: 73ff98e0f9cde8a8fcdeb34b4174cf7d
+      size: 442
     - path: src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
       hash: md5
       md5: 828e8b2ace8215408c85ed23b88f53dd
       size: 858
     params:
       params.yaml:
-        BATCH_SIZE: 16
-        EPOCHS: 1
+        BATCH_SIZE: 64
+        EPOCHS: 10
     outs:
     - path: scores.json
       hash: md5
-      md5: d9eab9f4447b09d6fc7080964338ab18
-      size: 106
+      md5: 13403b7a196f306ff4ec44302a3086bb
+      size: 129

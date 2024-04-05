@@ -4,5 +4,5 @@ val: images/val
 
 
 names:
-  0: body
-  1: face
+  0: Body
+  1: Face

@@ -25,3 +25,10 @@ class EvaluationConfig:
     all_params: dict
     mlflow_uri: str
     model_name: str
+
+
+@dataclass(frozen=True)
+class PredictionConfig:
+    root_dir: Path
+    model_path: Path
+    prediction_output: Path
