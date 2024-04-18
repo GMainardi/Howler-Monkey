@@ -14,12 +14,15 @@ jobs:
       name: Checkout
       id: checkout
       uses: actions/checkout@v4
+    - 
+      name: Convert actor name to lower case
+        un: echo "GITHUB_ACTOR=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
     -
         name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: $GITHUB_ACTOR
           password: ${{ secrets.GH_PAT }}
     - 
         name: Pre-build dev container image
