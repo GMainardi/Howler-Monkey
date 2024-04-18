@@ -5,7 +5,7 @@ on:
     paths:
       - .github/.devcontainer/**
 
-job:
+jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
