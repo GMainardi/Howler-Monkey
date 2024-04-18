@@ -1,0 +1,18 @@
+name: Docker base Image CI for GHCR
+
+on:
+  push:
+    paths:
+      - .github/.devcontainer/**
+
+job:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: login github container registry
+        run: docker login --username gmainardi --password ${{ secrets.GH_PAT }} ghcr.io
+          
+      - name: Pre-build dev container image
+      - uses: devcontainers/ci@v0.2
+        run: devcontianer build --workspace-folder .github/ --push true --image-name ghcr.io/gmainardi/howler-monkey-base:latest
