@@ -1,9 +1,9 @@
 name: Docker base Image CI for GHCR
 
 on:
-  push
-    #paths:
-    #  - .github/.devcontainer/**
+  push:
+    paths:
+      - .github/.devcontainer/**
 
 
 jobs:
