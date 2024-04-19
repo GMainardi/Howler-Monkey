@@ -1,0 +1,15 @@
+artifact_uri: /workspaces/Howler-Monkey/'https:/dagshub.com/GMainardi/Howler-Monkey.mlflow'/382641981569216505/44d7e21d5949442eac6e215bcefc3db6/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '382641981569216505'
+lifecycle_stage: active
+run_id: 44d7e21d5949442eac6e215bcefc3db6
+run_name: train2
+run_uuid: 44d7e21d5949442eac6e215bcefc3db6
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1713555637610
+status: 1
+tags: []
+user_id: '''GMainardi'''
