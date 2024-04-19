@@ -9,4 +9,4 @@ COPY ./requirements.txt .
 
 RUN pip install -r requirements.txt
 
-RUN sed -i 's|/datasets|/}|' settings.yaml
+RUN sed -i 's|/datasets|/}|' /home/vscode/.config/Ultralytics/settings.yaml
