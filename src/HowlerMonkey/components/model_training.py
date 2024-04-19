@@ -2,8 +2,8 @@ import shutil
 from pathlib import Path
 from ultralytics import YOLO
 
-from src.HowlerMonkey.utils.common import get_latest_model
-from src.HowlerMonkey.entity.config_entity import TrainingConfig
+from HowlerMonkey.utils.common import get_latest_model
+from HowlerMonkey.entity.config_entity import TrainingConfig
 
 class Training:
     def __init__(self, config: TrainingConfig):

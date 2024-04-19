@@ -1,11 +1,26 @@
 {
-    "build": {
-      "dockerfile": "./Dockerfile",
-      "context": "."
-    },
+
+   "image": "ghcr.io/gmainardi/howler-monkey-base:latest",
+
     "features": {
       "ghcr.io/devcontainers/features/github-cli:1": {
-        "version": "latest"
       }
-    }
+    },
+
+   "runArgs": [
+      "--env-file",
+      ".devcontainer/.env"
+   ],
+   "containerEnv": {
+      "PYTHONPATH": "/workspaces/Howler-Monkey/src"
+   },
+   "customizations": {
+      "vscode": {
+         "extensions": [
+            "ms-azuretools.vscode-docker",
+            "ms-python.python",
+            "ms-toolsai.jupyter"
+         ]
+      }
+   }
 }       

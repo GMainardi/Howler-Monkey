@@ -1,4 +1,7 @@
-FROM mcr.microsoft.com/devcontainers/python:3.11-bullseye
+FROM ghcr.io/gmainardi/howler-monkey:latest
 
+COPY ./dev-requirements.txt .
 
-RUN sudo apt-get update && sudo apt-get upgrade -y
+RUN pip install -r dev-requirements.txt
+
+RUN sudo apt-get update && sudo apt-get install -y libgl1-mesa-glx

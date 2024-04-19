@@ -1,6 +1,6 @@
-from src.HowlerMonkey.config.configuration import ConfigurationManager
-from src.HowlerMonkey.components.data_ingestion import DataIngestion
-from src.HowlerMonkey import logger
+from HowlerMonkey.config.configuration import ConfigurationManager
+from HowlerMonkey.components.data_ingestion import DataIngestion
+from HowlerMonkey import logger
 
 STAGE_NAME = "Data Ingestion stage"
 

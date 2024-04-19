@@ -5,8 +5,8 @@ from fastapi import HTTPException
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
 
-from src.HowlerMonkey.config.configuration import ConfigurationManager
-from src.HowlerMonkey.components.prediction import Prediction
+from HowlerMonkey.config.configuration import ConfigurationManager
+from HowlerMonkey.components.prediction import Prediction
 
 config_manager = ConfigurationManager()
 

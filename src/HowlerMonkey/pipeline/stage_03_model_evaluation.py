@@ -1,6 +1,6 @@
-from src.HowlerMonkey import logger
-from src.HowlerMonkey.components.model_evaluation import Evaluation
-from src.HowlerMonkey.config.configuration import ConfigurationManager
+from HowlerMonkey import logger
+from HowlerMonkey.components.model_evaluation import Evaluation
+from HowlerMonkey.config.configuration import ConfigurationManager
 
 
 STAGE_NAME = "Evaluation stage"

@@ -2,8 +2,8 @@ import cv2
 from pathlib import Path
 from ultralytics import YOLO
 
-from src.HowlerMonkey.utils.common import get_latest_model
-from src.HowlerMonkey.entity.config_entity import PredictionConfig
+from HowlerMonkey.utils.common import get_latest_model
+from HowlerMonkey.entity.config_entity import PredictionConfig
 
 
 class Prediction:
