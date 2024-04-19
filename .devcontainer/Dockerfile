@@ -4,4 +4,5 @@ COPY ./dev-requirements.txt .
 
 RUN pip install -r dev-requirements.txt
 
-RUN sudo apt-get update && sudo apt-get install -y libgl1-mesa-glx
+
+RUN sed -i "s|/datasets|/|" /home/vscode/.config/Ultralytics/settings.yaml
