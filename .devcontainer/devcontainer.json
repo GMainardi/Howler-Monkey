@@ -2,18 +2,11 @@
 
    "image": "ghcr.io/gmainardi/howler-monkey-base:latest",
 
-    "features": {
-      "ghcr.io/devcontainers/features/github-cli:1": {
-      }
-    },
-
-   "runArgs": [
-      "--env-file",
-      ".devcontainer/.env"
-   ],
-   "containerEnv": {
-      "PYTHONPATH": "/workspaces/Howler-Monkey/src"
+   "features": {
+      "ghcr.io/devcontainers/features/github-cli:1": {},
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
    },
+
    "customizations": {
       "vscode": {
          "extensions": [

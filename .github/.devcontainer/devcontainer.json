@@ -2,5 +2,12 @@
     "build": {
       "dockerfile": "./Dockerfile",
       "context": "."
-    }
+    },
+    "runArgs": [
+      "--env-file",
+      ".devcontainer/.env"
+   ],
+   "containerEnv": {
+      "PYTHONPATH": "/workspaces/Howler-Monkey/src"
+   }
 }       
