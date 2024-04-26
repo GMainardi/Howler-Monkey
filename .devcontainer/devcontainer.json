@@ -1,7 +1,9 @@
 {
 
-   "image": "ghcr.io/gmainardi/howler-monkey-base:latest",
-
+   "build": {
+      "dockerfile": "./Dockerfile",
+      "context": "."
+    },
    "features": {
       "ghcr.io/devcontainers/features/github-cli:1": {},
       "ghcr.io/devcontainers/features/docker-in-docker:2": {}
