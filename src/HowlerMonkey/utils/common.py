@@ -9,7 +9,7 @@ from box import ConfigBox
 from ensure import ensure_annotations
 from box.exceptions import BoxValueError
 
-from src.HowlerMonkey import logger
+from HowlerMonkey import logger
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:

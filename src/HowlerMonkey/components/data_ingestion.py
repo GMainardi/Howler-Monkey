@@ -3,8 +3,8 @@ import zipfile
 import gdown
 
 
-from src.HowlerMonkey import logger
-from src.HowlerMonkey.entity.config_entity import DataIngestionConfig
+from HowlerMonkey import logger
+from HowlerMonkey.entity.config_entity import DataIngestionConfig
 
 
 class DataIngestion:

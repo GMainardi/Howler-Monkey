@@ -13,8 +13,8 @@ stages:
       size: 442
     - path: src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
       hash: md5
-      md5: a48c46fc53d9cb21f2559cf10a00c1e5
-      size: 889
+      md5: 5510a15ecd3aea916a76f4d7e6ae056f
+      size: 877
     outs:
     - path: artifacts/data_ingestion/data
       hash: md5

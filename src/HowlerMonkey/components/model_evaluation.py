@@ -4,8 +4,8 @@ import mlflow.pytorch
 from ultralytics import YOLO
 from urllib.parse import urlparse
 
-from src.HowlerMonkey.utils.common import save_json, get_latest_model, clean_scores
-from src.HowlerMonkey.entity.config_entity import EvaluationConfig
+from HowlerMonkey.utils.common import save_json, get_latest_model, clean_scores
+from HowlerMonkey.entity.config_entity import EvaluationConfig
 
 class Evaluation:
     def __init__(self, config: EvaluationConfig):

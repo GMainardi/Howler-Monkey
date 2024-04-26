@@ -15,36 +15,6 @@ This master's thesis project develops a machine learning model by fine-tuning th
 
 Before installing the project, ensure you have the following prerequisites installed:
 
-### Python 3.9
-
-#### Windows & macOS:
-
-1. Download the Python 3.9 installer from the [official Python website](https://www.python.org/downloads/release/python-396/).
-2. Run the installer and follow the on-screen instructions. Make sure to check the box that says "Add Python 3.9 to PATH" during installation.
-3. To verify the installation, open a terminal or command prompt and type:
-   ``` bash
-   $ python --version
-   ```
-   You should see "Python 3.9.6" as the output.
-
-#### Linux:
-
-Most Linux distributions include Python by default. To install Python 3.9, you can use the package manager of your distribution. For example, on Ubuntu, you can install Python 3.9 by running:
-``` bash
-$ sudo apt update && sudo apt upgrade -y
-$ sudo apt install python3.9
-```
-
-### Poetry
-
-Poetry is a tool for dependency management and packaging in Python. To [install Poetry](https://python-poetry.org/docs/#installing-with-the-official-installer), run the following command in your terminal:
-
-``` bash 
-$ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-```
-
-After installation, restart your terminal and run `poetry --version` to ensure it was installed correctly.
-
 ### Docker
 
 Docker is used to containerize your application, ensuring it runs the same in any environment.
@@ -71,6 +41,8 @@ Docker is used to containerize your application, ensuring it runs the same in an
    $ docker --version
    ```
 
+### VS Code
+setup vs code with dev container
 
 ## Installation
 
@@ -100,15 +72,7 @@ $ git clone https://github.com/YOUR_USERNAME/howler-monkey-detection.git
 cd howler-monkey-detection
 ```
 
-### Step 3: Set Up Your Environment
-
-After cloning the project, you might need to set up your development environment. This usually involves installing dependencies, which can be done using the following command:
-
-```bash
-poetry install
-```
-
-### Step 4: Add the Original Repository as a Remote
+### Step 3: Add the Original Repository as a Remote
 
 To keep your fork up to date with the original project, add the original repository as a remote:
 
@@ -129,13 +93,9 @@ This project is structured to streamline the process of downloading the necessar
 
 To initiate the process, ensure you are in the project's root directory and follow these steps:
 
-### Step 1: Initialize virtual env
+### Step 1: Initialize Dev container
 
-The first step is to start the virtual env with the command:
 
-``` bash
-$ poetry shell
-```
 
 ### Step 2: Initialize DVC
 

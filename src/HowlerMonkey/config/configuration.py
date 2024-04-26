@@ -1,14 +1,14 @@
 import os
 
 
-from src.HowlerMonkey.constants import *
-from src.HowlerMonkey.utils.common import read_yaml, create_directories
+from HowlerMonkey.constants import *
+from HowlerMonkey.utils.common import read_yaml, create_directories
 
 
-from src.HowlerMonkey.entity.config_entity import DataIngestionConfig
-from src.HowlerMonkey.entity.config_entity import TrainingConfig
-from src.HowlerMonkey.entity.config_entity import EvaluationConfig
-from src.HowlerMonkey.entity.config_entity import PredictionConfig
+from HowlerMonkey.entity.config_entity import DataIngestionConfig
+from HowlerMonkey.entity.config_entity import TrainingConfig
+from HowlerMonkey.entity.config_entity import EvaluationConfig
+from HowlerMonkey.entity.config_entity import PredictionConfig
 
 class ConfigurationManager:
 

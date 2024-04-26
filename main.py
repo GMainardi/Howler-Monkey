@@ -1,7 +1,7 @@
-from src.HowlerMonkey import logger
-from src.HowlerMonkey.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
-from src.HowlerMonkey.pipeline.stage_02_model_training import ModelTrainingPipeline
-from src.HowlerMonkey.pipeline.stage_03_model_evaluation import EvaluationPipeline
+from HowlerMonkey import logger
+from HowlerMonkey.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
+from HowlerMonkey.pipeline.stage_02_model_training import ModelTrainingPipeline
+from HowlerMonkey.pipeline.stage_03_model_evaluation import EvaluationPipeline
 
 
 STAGE_NAME = "Data Ingestion stage"
