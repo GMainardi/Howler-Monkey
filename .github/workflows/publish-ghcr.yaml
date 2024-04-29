@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/.devcontainer/**
-      - .github/workflowspublish-ghcr.yaml
+      - .github/workflows/publish-ghcr.yaml
 
 
 jobs:
