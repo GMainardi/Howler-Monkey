@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/.devcontainer/**
+      - .github/workflowspublish-ghcr.yaml
 
 
 jobs:
@@ -29,6 +30,6 @@ jobs:
         uses: devcontainers/ci@v0.2
         with:
           subFolder: .github
-          imageName: ghcr.io/${{ env.GITHUB_REPOSITORY }}
-          cacheFrom: ghcr.io/${{ env.GITHUB_REPOSITORY }}
+          imageName: ghcr.io/${{ env.GITHUB_REPOSITORY }}:cuda
+          cacheFrom: ghcr.io/${{ env.GITHUB_REPOSITORY }}:cuda
           push: always
