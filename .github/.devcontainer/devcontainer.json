@@ -1,9 +1,9 @@
 {
-    "build": {
+   "build": {
       "dockerfile": "./Dockerfile",
       "context": "."
     },
-    "runArgs": [
+   "runArgs": [
       "--env-file", ".devcontainer/.env",
       "--gpus", "all"
    ],

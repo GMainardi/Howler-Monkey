@@ -5,22 +5,22 @@ stages:
     deps:
     - path: config/coco.yaml
       hash: md5
-      md5: addba1a1b0b5cf07c3bd61307eab1bbd
-      size: 100
+      md5: ccc4cb946696d40633a9e104d4ee76ee
+      size: 107
     - path: config/config.yaml
       hash: md5
-      md5: 73ff98e0f9cde8a8fcdeb34b4174cf7d
-      size: 442
+      md5: 65341295c3e7d76d9d4ccdfd44020256
+      size: 457
     - path: src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
       hash: md5
-      md5: 5510a15ecd3aea916a76f4d7e6ae056f
-      size: 877
+      md5: 5f85936cac692c201024a5533003c227
+      size: 905
     outs:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 1004bc9ea587ecec9083e12b57ca8840.dir
-      size: 1552063472
-      nfiles: 4296
+      md5: 821515f5824c310cdf124c13dedcc23c.dir
+      size: 1288728640
+      nfiles: 26169
   training:
     cmd: python src/HowlerMonkey/pipeline/stage_02_model_training.py
     deps:
