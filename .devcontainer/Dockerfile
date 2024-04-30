@@ -1,4 +1,4 @@
-FROM ultralytics/ultralytics
+FROM ghcr.io/gmainardi/howler-monkey-cuda:latest
 
 COPY ./dev-requirements.txt .
 

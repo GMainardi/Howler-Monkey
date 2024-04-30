@@ -12,6 +12,7 @@ class Training:
     
     def get_model(self):
         self.model = YOLO(self.config.model_path)
+        self.model.to('cuda')
 
     def save_model(self, path: Path):
         best_model_path = get_latest_model(self.config.root_dir)
