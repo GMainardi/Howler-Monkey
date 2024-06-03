@@ -9,7 +9,7 @@ stages:
       size: 100
     - path: config/config.yaml
       hash: md5
-      md5: 73ff98e0f9cde8a8fcdeb34b4174cf7d
+      md5: 2006b31c8e6f6e5b240793aac0cdd2d5
       size: 442
     - path: src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
       hash: md5
@@ -18,9 +18,9 @@ stages:
     outs:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 1004bc9ea587ecec9083e12b57ca8840.dir
-      size: 1552063472
-      nfiles: 4296
+      md5: 821515f5824c310cdf124c13dedcc23c.dir
+      size: 1288728640
+      nfiles: 26169
   training:
     cmd: python src/HowlerMonkey/pipeline/stage_02_model_training.py
     deps:

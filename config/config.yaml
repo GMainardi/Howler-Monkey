@@ -2,13 +2,13 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  data_id: 1ZkS2MmiYPNeuD6XyixzD_kPOXUy4h8w5
+  data_id: 15IcJEbi8o5IfjYOcYX45htqitGJKkO6X
   local_data_file: artifacts/data_ingestion/howler_data.zip
   unzip_dir: artifacts/data_ingestion
 
 training:
   root_dir: artifacts/training
-  model_path: artifacts/training/yolov8m.pt
+  model_path: artifacts/training/yolov8n.pt
   data_file_path: config/coco.yaml
 
 predicting:

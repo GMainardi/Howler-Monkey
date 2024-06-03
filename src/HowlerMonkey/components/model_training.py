@@ -24,7 +24,8 @@ class Training:
             data=self.config.data_file_path,
             epochs=self.config.params_epochs,
             batch=self.config.params_batch_size,
-            project=self.config.root_dir
+            project=self.config.root_dir,
+            imsize=self.config.params_image_size
         )
 
         self.save_model(self.config.root_dir)

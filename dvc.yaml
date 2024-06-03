@@ -19,6 +19,7 @@ stages:
     params:
       - EPOCHS
       - BATCH_SIZE
+      - IMSIZE
     outs:
       - artifacts/training/best.pt
 
@@ -34,6 +35,7 @@ stages:
     params:
       - EPOCHS
       - BATCH_SIZE
+      - IMSIZE
     metrics:
     - scores.json:
         cache: false

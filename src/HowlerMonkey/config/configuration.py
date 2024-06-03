@@ -52,7 +52,8 @@ class ConfigurationManager:
             model_path        = training.model_path,
             data_file_path    = Path(training.data_file_path),
             params_epochs     = self.params.EPOCHS,
-            params_batch_size = self.params.BATCH_SIZE
+            params_batch_size = self.params.BATCH_SIZE,
+            params_image_size = self.params.IMSIZE
         )
         
         return training_config
