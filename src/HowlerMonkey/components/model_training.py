@@ -2,8 +2,8 @@ import shutil
 from pathlib import Path
 from ultralytics import YOLO
 
-from src.HowlerMonkey.utils.common import get_latest_model
-from src.HowlerMonkey.entity.config_entity import TrainingConfig
+from HowlerMonkey.utils.common import get_latest_model
+from HowlerMonkey.entity.config_entity import TrainingConfig
 
 class Training:
     def __init__(self, config: TrainingConfig):
@@ -24,7 +24,9 @@ class Training:
             data=self.config.data_file_path,
             epochs=self.config.params_epochs,
             batch=self.config.params_batch_size,
-            project=self.config.root_dir
+            project=self.config.root_dir,
+            imgsz=self.config.params_image_size,
+            name=self.config.test_name
         )
 
         self.save_model(self.config.root_dir)

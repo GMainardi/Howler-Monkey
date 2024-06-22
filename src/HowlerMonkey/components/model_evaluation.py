@@ -4,8 +4,8 @@ import mlflow.pytorch
 from ultralytics import YOLO
 from urllib.parse import urlparse
 
-from src.HowlerMonkey.utils.common import save_json, get_latest_model, clean_scores
-from src.HowlerMonkey.entity.config_entity import EvaluationConfig
+from HowlerMonkey.utils.common import save_json, get_latest_model, clean_scores
+from HowlerMonkey.entity.config_entity import EvaluationConfig
 
 class Evaluation:
     def __init__(self, config: EvaluationConfig):
@@ -38,10 +38,10 @@ class Evaluation:
                 self.scores
             )
 
-            model = self.load_model(self.config.model_path)
+            #model = self.load_model(self.config.model_path)
 
             if tracking_url_type_store != "file":
-                mlflow.sklearn.log_model(model, "model", registered_model_name=self.config.model_name)
+                mlflow.pytorch.log_model(self.model, "model", registered_model_name=self.config.model_name)
             else:
-                mlflow.sklearn.log_model(model, "model")
+                mlflow.pytorch.log_model(self.model, "model")
 

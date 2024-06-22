@@ -1,15 +1,20 @@
 artifacts_root: artifacts
 
+
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  data_id: 1mIR2ocvXOn2eIVnEUGuaxW5ta3fLoVsx
-  local_data_file: artifacts/data_ingestion/howler_data.zip
-  unzip_dir: artifacts/data_ingestion
+  train_data_id: 18l6fmuuQKKtLKULw2UF2vVqiQzFRe5g9
+  val_data_id:  1JqD4SRcFq1Fuj0wPTvLd-mfWMlQlxR7T
+  local_train_data_file: artifacts/data_ingestion/train.zip
+  local_val_data_file: artifacts/data_ingestion/val.zip
+  unzip_train_dir: artifacts/data_ingestion/data/train
+  unzip_val_dir: artifacts/data_ingestion/data/val
 
 training:
   root_dir: artifacts/training
   model_path: artifacts/training/yolov8n.pt
   data_file_path: config/coco.yaml
+  test_name: howlerv2train_howlerv1val
 
 predicting:
   root_dir: artifacts/predicting

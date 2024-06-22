@@ -1,6 +1,6 @@
-from src.HowlerMonkey.config.configuration import ConfigurationManager
-from src.HowlerMonkey.components.data_ingestion import DataIngestion
-from src.HowlerMonkey import logger
+from HowlerMonkey.config.configuration import ConfigurationManager
+from HowlerMonkey.components.data_ingestion import DataIngestion
+from HowlerMonkey import logger
 
 STAGE_NAME = "Data Ingestion stage"
 
@@ -11,10 +11,16 @@ class DataIngestionTrainingPipeline:
 
     def main(self):
         config = ConfigurationManager()
-        data_ingestion_config = config.get_data_ingestion_config()
-        data_ingestion = DataIngestion(config=data_ingestion_config)
-        data_ingestion.download_file()
-        data_ingestion.extract_zip_file()
+        
+        train_data_ingestion_config = config.get_train_data_ingestion_config()
+        traning_data_ingestion = DataIngestion(train_data_ingestion_config)
+        traning_data_ingestion.download_file()
+        traning_data_ingestion.extract_zip_file()
+
+        val_data_ingestion_config = config.get_val_data_ingestion_config()
+        val_data_ingestion = DataIngestion(val_data_ingestion_config)
+        val_data_ingestion.download_file()
+        val_data_ingestion.extract_zip_file()
 
 
 

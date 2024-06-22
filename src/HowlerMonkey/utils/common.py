@@ -9,7 +9,7 @@ from box import ConfigBox
 from ensure import ensure_annotations
 from box.exceptions import BoxValueError
 
-from src.HowlerMonkey import logger
+from HowlerMonkey import logger
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -170,6 +170,6 @@ def clean_scores(scores: dict) -> dict:
     new_scores = {}
     for key, value in scores.items():
         if 'metrics' in key:
-            new_key = key.split('/')[1].replace('(B)', '')
+            new_key = ''.join([char for char in key if char.isalnum()])
             new_scores[new_key] = value
     return new_scores

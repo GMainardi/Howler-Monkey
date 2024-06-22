@@ -17,6 +17,8 @@ class TrainingConfig:
     data_file_path: Path
     params_epochs: int
     params_batch_size: int
+    params_image_size: int
+    test_name: str
 
 @dataclass(frozen=True)
 class EvaluationConfig:

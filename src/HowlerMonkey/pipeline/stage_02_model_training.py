@@ -1,7 +1,7 @@
-from src.HowlerMonkey import logger
+from HowlerMonkey import logger
 
-from src.HowlerMonkey.components.model_training import Training
-from src.HowlerMonkey.config.configuration import ConfigurationManager
+from HowlerMonkey.components.model_training import Training
+from HowlerMonkey.config.configuration import ConfigurationManager
 
 
 STAGE_NAME = "Training"
