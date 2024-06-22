@@ -23,20 +23,29 @@ class ConfigurationManager:
         create_directories([self.config.artifacts_root])
 
 
-    def get_data_ingestion_config(self) -> DataIngestionConfig:
-
+    def get_train_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
-
         create_directories([config.root_dir])
-        
         data_ingestion_config = DataIngestionConfig(
             root_dir        = config.root_dir,
-            data_id         = config.data_id,
-            local_data_file = config.local_data_file,
-            unzip_dir       = config.unzip_dir 
+            data_id         = config.train_data_id,
+            local_data_file = config.local_train_data_file,
+            unzip_dir       = config.unzip_train_dir
         )
-        
-        
+
+        return data_ingestion_config
+
+
+    def get_val_data_ingestion_config(self) -> DataIngestionConfig:
+        config = self.config.data_ingestion
+        create_directories([config.root_dir])
+        data_ingestion_config = DataIngestionConfig(
+            root_dir        = config.root_dir,
+            data_id         = config.val_data_id,
+            local_data_file = config.local_val_data_file,
+            unzip_dir       = config.unzip_val_dir
+        )
+
         return data_ingestion_config
     
     def get_training_config(self):
@@ -53,7 +62,8 @@ class ConfigurationManager:
             data_file_path    = Path(training.data_file_path),
             params_epochs     = self.params.EPOCHS,
             params_batch_size = self.params.BATCH_SIZE,
-            params_image_size = self.params.IMSIZE
+            params_image_size = self.params.IMSIZE,
+            test_name         = training.test_name
         )
         
         return training_config

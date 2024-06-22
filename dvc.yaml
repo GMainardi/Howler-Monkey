@@ -24,18 +24,18 @@ stages:
       - artifacts/training/best.pt
 
 
-  evaluation:
-    cmd: python src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
-    deps:
-      - src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
-      - config/config.yaml
-      - artifacts/data_ingestion/data
-      - artifacts/training/best.pt
-      - config/coco.yaml
-    params:
-      - EPOCHS
-      - BATCH_SIZE
-      - IMSIZE
-    metrics:
-    - scores.json:
-        cache: false
+  # evaluation:
+  #   cmd: python src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
+  #   deps:
+  #     - src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
+  #     - config/config.yaml
+  #     - artifacts/data_ingestion/data
+  #     - artifacts/training/best.pt
+  #     - config/coco.yaml
+  #   params:
+  #     - EPOCHS
+  #     - BATCH_SIZE
+  #     - IMSIZE
+  #   metrics:
+  #   - scores.json:
+  #       cache: false

@@ -1,6 +1,8 @@
 import os
-import zipfile
 import gdown
+import shutil
+import zipfile
+
 
 
 from HowlerMonkey import logger
@@ -37,12 +39,27 @@ class DataIngestion:
     
 
     def extract_zip_file(self):
-        """
-        zip_file_path: str
-        Extracts the zip file into the data directory
-        Function returns None
-        """
         unzip_path = self.config.unzip_dir
         os.makedirs(unzip_path, exist_ok=True)
-        with zipfile.ZipFile(self.config.local_data_file, 'r') as zip_ref:
-            zip_ref.extractall(unzip_path)
+        os.makedirs(os.path.join(unzip_path, 'images'), exist_ok=True)
+        os.makedirs(os.path.join(unzip_path, 'labels'), exist_ok=True)
+        
+
+        with zipfile.ZipFile(self.config.local_data_file) as zip_file:
+            for member in zip_file.namelist():
+                filename = os.path.basename(member)
+                # skip directories
+                if not filename:
+                    continue
+            
+                # copy file (taken from zipfile's extract)
+                source = zip_file.open(member)
+                if filename.endswith('.png') or filename.endswith('.jpg'):
+                    target = open(os.path.join(unzip_path, 'images', filename), "wb")
+                elif filename.endswith('.txt'):
+                    target = open(os.path.join(unzip_path, 'labels', filename), "wb")
+                else:
+                    continue
+                
+                with source, target:
+                    shutil.copyfileobj(source, target)

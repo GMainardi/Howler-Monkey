@@ -5,51 +5,52 @@ stages:
     deps:
     - path: config/coco.yaml
       hash: md5
-      md5: addba1a1b0b5cf07c3bd61307eab1bbd
+      md5: 4d64a46590d6363f71e71bea5b1a87cc
       size: 100
     - path: config/config.yaml
       hash: md5
-      md5: 2006b31c8e6f6e5b240793aac0cdd2d5
-      size: 442
+      md5: 8628476c2387a356f90f8e5e72ea2618
+      size: 661
     - path: src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
       hash: md5
-      md5: 5510a15ecd3aea916a76f4d7e6ae056f
-      size: 877
+      md5: 30d65b5828452c2e33989d2b03c9a3e5
+      size: 1156
     outs:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 821515f5824c310cdf124c13dedcc23c.dir
-      size: 1288728640
-      nfiles: 26169
+      md5: 11a6baa3b513f01f8425b8084348e9ea.dir
+      size: 779779504
+      nfiles: 7200
   training:
     cmd: python src/HowlerMonkey/pipeline/stage_02_model_training.py
     deps:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 2fa27c287ef4487de1d4beadfc2503a6.dir
-      size: 1552964278
-      nfiles: 4298
+      md5: b8a713362374ba4a4bb57fc701fa9efa.dir
+      size: 780500074
+      nfiles: 7202
     - path: config/coco.yaml
       hash: md5
-      md5: addba1a1b0b5cf07c3bd61307eab1bbd
+      md5: 4d64a46590d6363f71e71bea5b1a87cc
       size: 100
     - path: config/config.yaml
       hash: md5
-      md5: 73ff98e0f9cde8a8fcdeb34b4174cf7d
-      size: 442
+      md5: 8628476c2387a356f90f8e5e72ea2618
+      size: 661
     - path: src/HowlerMonkey/pipeline/stage_02_model_training.py
       hash: md5
-      md5: cf6ae279002dae051c7f64cd3d25834f
-      size: 847
+      md5: 4f0e558969d92c8c0426bf354d8debb4
+      size: 835
     params:
       params.yaml:
-        BATCH_SIZE: 64
-        EPOCHS: 10
+        BATCH_SIZE: 32
+        EPOCHS: 100
+        IMSIZE: 620
     outs:
     - path: artifacts/training/best.pt
       hash: md5
-      md5: f5096e20129b0d5e5090f2f1263f562a
-      size: 6231257
+      md5: b26ee8aa390ee083f15abd291d158d60
+      size: 6241625
   evaluation:
     cmd: python src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
     deps:

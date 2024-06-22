@@ -170,6 +170,6 @@ def clean_scores(scores: dict) -> dict:
     new_scores = {}
     for key, value in scores.items():
         if 'metrics' in key:
-            new_key = key.split('/')[1].replace('(B)', '')
+            new_key = ''.join([char for char in key if char.isalnum()])
             new_scores[new_key] = value
     return new_scores
