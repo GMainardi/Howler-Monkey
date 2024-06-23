@@ -6,6 +6,7 @@ from dataclasses import dataclass
 class DataIngestionConfig:
     root_dir: Path
     data_id: str
+    data_porcentage: int
     local_data_file: Path
     unzip_dir: Path
 

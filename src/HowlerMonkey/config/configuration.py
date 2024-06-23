@@ -23,27 +23,41 @@ class ConfigurationManager:
         create_directories([self.config.artifacts_root])
 
 
-    def get_train_data_ingestion_config(self) -> DataIngestionConfig:
+    def get_train1_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
         create_directories([config.root_dir])
         data_ingestion_config = DataIngestionConfig(
-            root_dir        = config.root_dir,
-            data_id         = config.train_data_id,
-            local_data_file = config.local_train_data_file,
-            unzip_dir       = config.unzip_train_dir
+            root_dir        = Path(config.root_dir),
+            data_id         = config.train_data_id_1,
+            data_porcentage = int(config.porcent_data_1),
+            local_data_file = Path(config.local_train_data_file),
+            unzip_dir       = Path(config.unzip_train_dir)
         )
 
         return data_ingestion_config
+    
+    def get_train2_data_ingestion_config(self) -> DataIngestionConfig:
+        config = self.config.data_ingestion
+        create_directories([config.root_dir])
+        data_ingestion_config = DataIngestionConfig(
+            root_dir        = Path(config.root_dir),
+            data_id         = config.train_data_id_2,
+            data_porcentage = int(config.porcent_data_2),
+            local_data_file = Path(config.local_train_data_file),
+            unzip_dir       = Path(config.unzip_train_dir)
+        )
 
-
+        return data_ingestion_config
+    
     def get_val_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
         create_directories([config.root_dir])
         data_ingestion_config = DataIngestionConfig(
-            root_dir        = config.root_dir,
+            root_dir        = Path(config.root_dir),
             data_id         = config.val_data_id,
-            local_data_file = config.local_val_data_file,
-            unzip_dir       = config.unzip_val_dir
+            data_porcentage = 100,
+            local_data_file = Path(config.local_val_data_file),
+            unzip_dir       = Path(config.unzip_val_dir)
         )
 
         return data_ingestion_config
