@@ -1,10 +1,18 @@
 artifacts_root: artifacts
 
+# howler 1 ponte: 1x96HUNENYCfvyH7F4A2u5f8rZoEPEGfg
+# howler 2 pontes: 1RfwpW6tCbjgeQVXzXgvhZO2JThPKzdc8
+
+# humanos: 15Upd6K2LloBbipuqWrZGWwSTfuwff1wI
+# macaco generico: 16Hwu7e5p_N5KYZUW_Fdad60_jRAcyCMS
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  train_data_id: 18l6fmuuQKKtLKULw2UF2vVqiQzFRe5g9
-  val_data_id:  1JqD4SRcFq1Fuj0wPTvLd-mfWMlQlxR7T
+  train_data_id_1: 1RfwpW6tCbjgeQVXzXgvhZO2JThPKzdc8
+  train_data_id_2: 16Hwu7e5p_N5KYZUW_Fdad60_jRAcyCMS
+  porcent_data_1: 50
+  porcent_data_2: 50
+  val_data_id:  1x96HUNENYCfvyH7F4A2u5f8rZoEPEGfg
   local_train_data_file: artifacts/data_ingestion/train.zip
   local_val_data_file: artifacts/data_ingestion/val.zip
   unzip_train_dir: artifacts/data_ingestion/data/train
@@ -19,3 +27,5 @@ training:
 predicting:
   root_dir: artifacts/predicting
   prediction_output: artifacts/predicting/output.mp4
+
+  

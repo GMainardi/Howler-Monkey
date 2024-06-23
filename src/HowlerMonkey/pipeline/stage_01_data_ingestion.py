@@ -1,3 +1,6 @@
+import shutil
+
+
 from HowlerMonkey.config.configuration import ConfigurationManager
 from HowlerMonkey.components.data_ingestion import DataIngestion
 from HowlerMonkey import logger
@@ -12,8 +15,15 @@ class DataIngestionTrainingPipeline:
     def main(self):
         config = ConfigurationManager()
         
-        train_data_ingestion_config = config.get_train_data_ingestion_config()
-        traning_data_ingestion = DataIngestion(train_data_ingestion_config)
+        shutil.rmtree(config.config.data_ingestion.root_dir, ignore_errors=True)
+        
+        train_data1_ingestion_config = config.get_train1_data_ingestion_config()
+        traning_data_ingestion = DataIngestion(train_data1_ingestion_config)
+        traning_data_ingestion.download_file()
+        traning_data_ingestion.extract_zip_file()
+
+        train_data2_ingestion_config = config.get_train2_data_ingestion_config()
+        traning_data_ingestion = DataIngestion(train_data2_ingestion_config)
         traning_data_ingestion.download_file()
         traning_data_ingestion.extract_zip_file()
 
