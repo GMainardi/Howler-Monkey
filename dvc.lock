@@ -9,8 +9,8 @@ stages:
       size: 100
     - path: config/config.yaml
       hash: md5
-      md5: 275a323e906d2802b1f7902ee42f55a4
-      size: 967
+      md5: 3d6a46c9c41d83f962ac7663b82d5205
+      size: 1001
     - path: src/HowlerMonkey/pipeline/stage_01_data_ingestion.py
       hash: md5
       md5: 26d478c82ca1cff6214c31195b270460
@@ -18,29 +18,32 @@ stages:
     outs:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: 9b43cefbfc72a8f293af0249ff124687.dir
-      size: 746310043
-      nfiles: 7200
+      md5: ffec7debccca1bf4b10589a44e584ae4.dir
+      size: 328058868
+      nfiles: 4800
   training:
     cmd: python src/HowlerMonkey/pipeline/stage_02_model_training.py
     deps:
     - path: artifacts/data_ingestion/data
       hash: md5
-      md5: b8a713362374ba4a4bb57fc701fa9efa.dir
-      size: 780500074
-      nfiles: 7202
+      md5: bc421f760b39cdfc2a3962cf6a9d4cce.dir
+      size: 346365468
+      nfiles: 4802
     - path: config/coco.yaml
       hash: md5
       md5: 4d64a46590d6363f71e71bea5b1a87cc
       size: 100
+      isexec: true
     - path: config/config.yaml
       hash: md5
-      md5: 8628476c2387a356f90f8e5e72ea2618
-      size: 661
+      md5: dc52bac020d4b089544ca25b668a2f6c
+      size: 1009
+      isexec: true
     - path: src/HowlerMonkey/pipeline/stage_02_model_training.py
       hash: md5
       md5: 4f0e558969d92c8c0426bf354d8debb4
       size: 835
+      isexec: true
     params:
       params.yaml:
         BATCH_SIZE: 32
@@ -49,8 +52,8 @@ stages:
     outs:
     - path: artifacts/training/best.pt
       hash: md5
-      md5: b26ee8aa390ee083f15abd291d158d60
-      size: 6241625
+      md5: d769bb8a721b32e48b096967d57f09b8
+      size: 6234713
   evaluation:
     cmd: python src/HowlerMonkey/pipeline/stage_03_model_evaluation.py
     deps:

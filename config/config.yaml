@@ -6,13 +6,15 @@ artifacts_root: artifacts
 # humanos: 15Upd6K2LloBbipuqWrZGWwSTfuwff1wI
 # macaco generico: 16Hwu7e5p_N5KYZUW_Fdad60_jRAcyCMS
 
+# val: 1fw34XJenCRJTt8bqPKnyc4tBOqFQivs4
+
 data_ingestion:
   root_dir: artifacts/data_ingestion
   train_data_id_1: 1RfwpW6tCbjgeQVXzXgvhZO2JThPKzdc8
   train_data_id_2: 16Hwu7e5p_N5KYZUW_Fdad60_jRAcyCMS
-  porcent_data_1: 50
-  porcent_data_2: 50
-  val_data_id:  1x96HUNENYCfvyH7F4A2u5f8rZoEPEGfg
+  porcent_data_1: 75
+  porcent_data_2: 25
+  val_data_id:  1fw34XJenCRJTt8bqPKnyc4tBOqFQivs4
   local_train_data_file: artifacts/data_ingestion/train.zip
   local_val_data_file: artifacts/data_ingestion/val.zip
   unzip_train_dir: artifacts/data_ingestion/data/train
@@ -22,7 +24,7 @@ training:
   root_dir: artifacts/training
   model_path: artifacts/training/yolov8n.pt
   data_file_path: config/coco.yaml
-  test_name: howlerv2train_howlerv1val
+  test_name: howler75_macaco25
 
 predicting:
   root_dir: artifacts/predicting

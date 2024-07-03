@@ -5,19 +5,14 @@
       "context": "."
     },
    "features": {
-      "ghcr.io/devcontainers/features/github-cli:1": {},
-      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+      "ghcr.io/devcontainers/features/github-cli:1": {}
    },
-   "runArgs": [
-      "--gpus", "all"
-   ],
    "customizations": {
       "vscode": {
          "extensions": [
             "ms-azuretools.vscode-docker",
             "ms-python.python",
-            "ms-toolsai.jupyter",
-            "Codeium.codeium"
+            "ms-toolsai.jupyter"
          ]
       }
    }
