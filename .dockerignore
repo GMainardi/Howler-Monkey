@@ -1,9 +1,0 @@
-.devcontainer
-.github
-artifacts/**
-logs/** 
-research/**
-.gitignore
-main.py
-README.md
-setup.py
