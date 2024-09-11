@@ -1,48 +1,115 @@
-import os
-import zipfile
-import gdown
+import glob
+import json
+import random
 
-
-from src.HowlerMonkey import logger
-from src.HowlerMonkey.entity.config_entity import DataIngestionConfig
-
+from HowlerMonkey.utils.common import copy_images, clear_and_create_folder
+from HowlerMonkey.entity.config_entity import DataIngestionConfig
+from HowlerMonkey import logger
 
 class DataIngestion:
+
     def __init__(self, config: DataIngestionConfig):
         self.config = config
 
-    
-    def download_file(self)-> str:
-        '''
-        Fetch data from the url
-        '''
+    def load_fold_file(self):
 
-        try: 
-            dataset_id = self.config.data_id
-            zip_download_dir = self.config.local_data_file
-            os.makedirs(self.config.root_dir, exist_ok=True)
-            logger.info(f"Downloading data with id {dataset_id} into file {zip_download_dir}")
+        logger.info(f"Loading fold file")
+        with open(self.config.fold_file, 'r') as f:
+            self.folds_info = json.load(f)
+        logger.info(f"Fold file loaded")
 
-            prefix = 'https://drive.google.com/uc?/export=download&id='
-            gdown.download(
-                prefix+dataset_id,
-                zip_download_dir
-            )
-
-            logger.info(f"Downloaded data with id {dataset_id} into file {zip_download_dir}")
-
-        except Exception as e:
-            raise e
+    def clear_folders(self):
         
-    
+        clear_and_create_folder(
+            self.config.images_path / 'val', 
+            self.config.labels_path / 'val'
+        )
 
-    def extract_zip_file(self):
-        """
-        zip_file_path: str
-        Extracts the zip file into the data directory
-        Function returns None
-        """
-        unzip_path = self.config.unzip_dir
-        os.makedirs(unzip_path, exist_ok=True)
-        with zipfile.ZipFile(self.config.local_data_file, 'r') as zip_ref:
-            zip_ref.extractall(unzip_path)
+        clear_and_create_folder(
+            self.config.images_path / 'train', 
+            self.config.labels_path / 'train'
+        )
+        
+    def get_images_paths(self):
+        logger.info(f"Getting images paths")
+        self.images_paths = glob.glob(str(self.config.images_path / 'main' / '*.jpg'))
+
+    def get_assistant_images_paths(self):
+        logger.info(f"Getting assistant images paths")
+        self.assistant_images_paths = glob.glob(str(self.config.images_path / 'assistant' / '*.jpg'))
+
+    def merge_assistant_data(self):
+
+        self.get_assistant_images_paths()
+
+        logger.info(f"Select {self.config.n_assistant_images} assistant images")
+        
+        self.assistant_images_paths = random.sample(
+            self.assistant_images_paths, 
+            self.config.n_assistant_images
+        )
+
+        logger.info(f"Getting train/val proportions")
+        
+        train_image_prop = 1 / self.config.folds
+        train_image_number = int(train_image_prop * self.config.n_assistant_images)
+        
+        logger.info(f"selectin {train_image_number} to train data")
+
+        train_assistant_images = self.assistant_images_paths[:train_image_number]
+        
+
+        copy_images(
+            train_assistant_images,
+            self.config.labels_path / "assistant", 
+            self.config.images_path / "train", 
+            self.config.labels_path / "train"
+        )
+
+        val_assistant_images = self.assistant_images_paths[train_image_number:]
+
+        copy_images(
+            val_assistant_images,
+            self.config.labels_path / "assistant", 
+            self.config.images_path / "val", 
+            self.config.labels_path / "val"
+        )
+
+
+
+    def split_data(self, fold_id: int):
+
+        self.get_images_paths()
+
+        logger.info(f"Splitting data for fold {fold_id}")
+
+        self.fold_data = next(
+            fold for fold in self.folds_info 
+                if fold['fold'] == fold_id
+        )
+
+        self.train_idx = self.fold_data['train_indices']
+        train_images = [self.images_paths[i] for i in self.train_idx]
+
+        copy_images(
+            train_images,
+            self.config.labels_path / "main", 
+            self.config.images_path / "train", 
+            self.config.labels_path / "train"
+        )
+
+
+
+        self.val_idx = self.fold_data['val_indices']
+        val_images = [self.images_paths[i] for i in self.val_idx]
+
+        logger.info(f"Copying images to val folder")
+
+        copy_images(
+            val_images,
+            self.config.labels_path / "main", 
+            self.config.images_path / "val", 
+            self.config.labels_path / "val"
+        )
+
+

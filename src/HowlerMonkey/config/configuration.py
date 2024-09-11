@@ -1,17 +1,14 @@
-import os
+from HowlerMonkey.constants import *
+from HowlerMonkey.utils.common import read_yaml, create_directories
 
+from HowlerMonkey.entity.config_entity import KFoldConfig
+from HowlerMonkey.entity.config_entity import DataSelectorConfig
+from HowlerMonkey.entity.config_entity import DataIngestionConfig
+from HowlerMonkey.entity.config_entity import TrainingConfig
 
-from src.HowlerMonkey.constants import *
-from src.HowlerMonkey.utils.common import read_yaml, create_directories
-
-
-from src.HowlerMonkey.entity.config_entity import DataIngestionConfig
-from src.HowlerMonkey.entity.config_entity import TrainingConfig
-from src.HowlerMonkey.entity.config_entity import EvaluationConfig
-from src.HowlerMonkey.entity.config_entity import PredictionConfig
 
 class ConfigurationManager:
-
+    
     def __init__(
         self,
         config_filepath = CONFIG_FILE_PATH,
@@ -23,17 +20,37 @@ class ConfigurationManager:
         create_directories([self.config.artifacts_root])
 
 
+    def get_kfold_config(self) -> KFoldConfig:
+
+        config = self.config.kfold
+
+        create_directories([config.root_dir])
+        
+        data_ingestion_config = KFoldConfig(
+            root_dir=Path(config.root_dir),
+            seed=config.seed,
+            folds=config.folds,
+            fold_file=Path(config.root_dir) / config.fold_file,
+            images_path=Path(config.images_path)
+        )
+        
+        
+        return data_ingestion_config
+    
     def get_data_ingestion_config(self) -> DataIngestionConfig:
 
         config = self.config.data_ingestion
+        kfold_config = self.config.kfold
 
         create_directories([config.root_dir])
         
         data_ingestion_config = DataIngestionConfig(
-            root_dir        = config.root_dir,
-            data_id         = config.data_id,
-            local_data_file = config.local_data_file,
-            unzip_dir       = config.unzip_dir 
+            root_dir        = Path(config.root_dir),
+            n_assistant_images = config.n_assistant_images,
+            fold_file= Path(kfold_config.root_dir) / kfold_config.fold_file,
+            images_path = Path(kfold_config.images_path),
+            labels_path= Path(kfold_config.labels_path),
+            folds = kfold_config.folds
         )
         
         
@@ -48,40 +65,31 @@ class ConfigurationManager:
         ])
 
         training_config = TrainingConfig(
-            root_dir          = Path(training.root_dir),
-            model_path        = training.model_path,
-            data_file_path    = Path(training.data_file_path),
-            params_epochs     = self.params.EPOCHS,
-            params_batch_size = self.params.BATCH_SIZE
+            root_dir = Path(training.root_dir),
+            model_path = training.model_path,
+            data_file_path = Path(training.data_file_path),
+            params_epochs = self.params.EPOCHS,
+            params_batch_size = self.params.BATCH_SIZE,
+            model_name= training.model_name,
+            device = training.device
         )
         
         return training_config
     
 
-    def get_evaluation_config(self) -> EvaluationConfig:
 
-        evaluation_config = EvaluationConfig(
-            model_path = self.config.training.root_dir,
-            data_path  = self.config.training.data_file_path,
-            all_params = self.params,
-            mlflow_uri = os.environ["MLFLOW_TRACKING_URI"],
-            model_name = self.config.training.model_path.split('/')[-1].split('.')[0]
+    def get_data_selector_config(self) -> DataSelectorConfig:
+
+        config = self.config.data_selector
+        kfconfig = self.config.kfold
+        
+        data_ingestion_config = DataSelectorConfig(
+            src_images_folder= Path(kfconfig.images_path) / Path(config.src_folder_name),
+            src_labels_folder= Path(kfconfig.labels_path) / Path(config.src_folder_name),
+            dest_images_folder= Path(kfconfig.images_path) / Path(config.dest_folder_name),
+            dest_labels_folder= Path(kfconfig.labels_path) / Path(config.dest_folder_name),
+            n_images = int(config.n_images)
         )
-        return evaluation_config
-    
-
-    def get_prediction_config(self):
-
-        predicting = self.config.predicting
-
-        create_directories([
-            Path(predicting.root_dir)
-        ])
-                
-        prediction_config = PredictionConfig(
-            root_dir          = Path(predicting.root_dir),
-            model_path        = self.config.training.root_dir,
-            prediction_output = predicting.prediction_output
-        )
-
-        return prediction_config
+        
+        
+        return data_ingestion_config

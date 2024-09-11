@@ -1,40 +1,39 @@
-from src.HowlerMonkey import logger
-from src.HowlerMonkey.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
-from src.HowlerMonkey.pipeline.stage_02_model_training import ModelTrainingPipeline
-from src.HowlerMonkey.pipeline.stage_03_model_evaluation import EvaluationPipeline
+from ultralytics import settings
 
 
-STAGE_NAME = "Data Ingestion stage"
+from HowlerMonkey.pipeline.stage_00_data_selector import DataSelectorPipeline
+from HowlerMonkey.pipeline.stage_01_create_k_fold_file import KFoldCreationPipeline
+from HowlerMonkey.pipeline.stage_02_training import ModelTrainingPipeline
+from HowlerMonkey import logger
+
+
+STAGE_NAME = "Create KFold file"
+try:
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   obj = DataSelectorPipeline()
+   obj.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+   logger.exception(e)
+   raise e
+
+STAGE_NAME = "Create KFold file"
 try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<") 
-   data_ingestion = DataIngestionTrainingPipeline()
-   data_ingestion.main()
+   obj = KFoldCreationPipeline()
+   obj.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
         logger.exception(e)
         raise e
 
 
-STAGE_NAME = "Training"
-try: 
-   logger.info(f"*******************")
-   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-   model_trainer = ModelTrainingPipeline()
-   model_trainer.main()
-   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-except Exception as e:
-        logger.exception(e)
-        raise e
-
-
-STAGE_NAME = "Evaluation stage"
+STAGE_NAME = "Model training"
 try:
-   logger.info(f"*******************")
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-   model_evalution = EvaluationPipeline()
-   model_evalution.main()
+   obj = ModelTrainingPipeline()
+   obj.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
-
 except Exception as e:
-        logger.exception(e)
-        raise e
+   logger.exception(e)
+   raise e

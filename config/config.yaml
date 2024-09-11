@@ -1,16 +1,27 @@
 artifacts_root: artifacts
 
+
+data_selector:
+  src_folder_name: master
+  dest_folder_name: main
+  n_images: 5
+
+kfold:
+  seed: 42
+  folds: 5
+  root_dir: artifacts/kfold
+  fold_file: folds_info.json
+  images_path: datasets/images
+  labels_path: datasets/labels
+
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  data_id: 1mIR2ocvXOn2eIVnEUGuaxW5ta3fLoVsx
-  local_data_file: artifacts/data_ingestion/howler_data.zip
-  unzip_dir: artifacts/data_ingestion
+  n_assistant_images: 5
 
 training:
   root_dir: artifacts/training
-  model_path: artifacts/training/yolov8n.pt
-  data_file_path: config/coco.yaml
-
-predicting:
-  root_dir: artifacts/predicting
-  prediction_output: artifacts/predicting/output.mp4
+  model_path: artifacts/training/yolov10n.pt
+  data_file_path: config/data.yaml
+  model_name: Monkey
+  device: cpu
+  
