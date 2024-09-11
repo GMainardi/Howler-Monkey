@@ -1,79 +1,115 @@
-import os
-import gdown
-import shutil
+import glob
+import json
 import random
-import zipfile
 
-
-
-from HowlerMonkey import logger
+from HowlerMonkey.utils.common import copy_images, clear_and_create_folder
 from HowlerMonkey.entity.config_entity import DataIngestionConfig
-
+from HowlerMonkey import logger
 
 class DataIngestion:
+
     def __init__(self, config: DataIngestionConfig):
         self.config = config
 
-    
-    def download_file(self)-> str:
-        '''
-        Fetch data from the url
-        '''
+    def load_fold_file(self):
 
-        try: 
-            dataset_id = self.config.data_id
-            zip_download_dir = self.config.local_data_file
-            os.makedirs(self.config.root_dir, exist_ok=True)
-            logger.info(f"Downloading data with id {dataset_id} into file {zip_download_dir}")
+        logger.info(f"Loading fold file")
+        with open(self.config.fold_file, 'r') as f:
+            self.folds_info = json.load(f)
+        logger.info(f"Fold file loaded")
 
-            prefix = 'https://drive.google.com/uc?/export=download&id='
-            gdown.download(
-                prefix+dataset_id,
-                str(zip_download_dir)
-            )
-
-            logger.info(f"Downloaded data with id {dataset_id} into file {zip_download_dir}")
-
-        except Exception as e:
-            raise e
+    def clear_folders(self):
         
-    
+        clear_and_create_folder(
+            self.config.images_path / 'val', 
+            self.config.labels_path / 'val'
+        )
 
-    def extract_zip_file(self):
-        unzip_path = self.config.unzip_dir
+        clear_and_create_folder(
+            self.config.images_path / 'train', 
+            self.config.labels_path / 'train'
+        )
+        
+    def get_images_paths(self):
+        logger.info(f"Getting images paths")
+        self.images_paths = glob.glob(str(self.config.images_path / 'main' / '*.jpg'))
 
-        os.makedirs(unzip_path, exist_ok=True)
-        os.makedirs(os.path.join(unzip_path, 'images'), exist_ok=True)
-        os.makedirs(os.path.join(unzip_path, 'labels'), exist_ok=True)
+    def get_assistant_images_paths(self):
+        logger.info(f"Getting assistant images paths")
+        self.assistant_images_paths = glob.glob(str(self.config.images_path / 'assistant' / '*.jpg'))
+
+    def merge_assistant_data(self):
+
+        self.get_assistant_images_paths()
+
+        logger.info(f"Select {self.config.n_assistant_images} assistant images")
+        
+        self.assistant_images_paths = random.sample(
+            self.assistant_images_paths, 
+            self.config.n_assistant_images
+        )
+
+        logger.info(f"Getting train/val proportions")
+        
+        train_image_prop = 1 / self.config.folds
+        train_image_number = int(train_image_prop * self.config.n_assistant_images)
+        
+        logger.info(f"selectin {train_image_number} to train data")
+
+        train_assistant_images = self.assistant_images_paths[:train_image_number]
         
 
-        logger.info(f"Extracting data from {self.config.local_data_file} into {unzip_path}")
-        with zipfile.ZipFile(self.config.local_data_file) as zip_file:
+        copy_images(
+            train_assistant_images,
+            self.config.labels_path / "assistant", 
+            self.config.images_path / "train", 
+            self.config.labels_path / "train"
+        )
 
-            all_images = [file_path for file_path in zip_file.namelist() if file_path.endswith('.png') or file_path.endswith('.jpg')]
+        val_assistant_images = self.assistant_images_paths[train_image_number:]
 
-            logger.info(f"Filtering {self.config.data_porcentage}% of {len(all_images)} samples")
+        copy_images(
+            val_assistant_images,
+            self.config.labels_path / "assistant", 
+            self.config.images_path / "val", 
+            self.config.labels_path / "val"
+        )
 
-            num_images = len(all_images)*(self.config.data_porcentage/100)
-            filtered_images = random.sample(all_images, int(num_images))
-            
-            logger.info(f"Extracting {len(filtered_images)} samples")
-            for image in filtered_images:
 
-                image_name = os.path.basename(image)
-                label_name = image_name.replace('.png', '.txt').replace('.jpg', '.txt')
 
-                image_source = zip_file.open(image)
-                label_source = zip_file.open(image.replace('images', 'labels').replace(image_name, label_name))
+    def split_data(self, fold_id: int):
 
-                image_target = open(os.path.join(unzip_path, 'images', image_name), "wb")
-                label_target = open(os.path.join(unzip_path, 'labels', label_name), "wb")
-                
-                with image_source, image_target:
-                    shutil.copyfileobj(image_source, image_target)
+        self.get_images_paths()
 
-                with label_source, label_target:
-                    shutil.copyfileobj(label_source, label_target)
+        logger.info(f"Splitting data for fold {fold_id}")
 
-            logger.info(f"Extracted {len(all_images)} samples into {unzip_path}")
-                
+        self.fold_data = next(
+            fold for fold in self.folds_info 
+                if fold['fold'] == fold_id
+        )
+
+        self.train_idx = self.fold_data['train_indices']
+        train_images = [self.images_paths[i] for i in self.train_idx]
+
+        copy_images(
+            train_images,
+            self.config.labels_path / "main", 
+            self.config.images_path / "train", 
+            self.config.labels_path / "train"
+        )
+
+
+
+        self.val_idx = self.fold_data['val_indices']
+        val_images = [self.images_paths[i] for i in self.val_idx]
+
+        logger.info(f"Copying images to val folder")
+
+        copy_images(
+            val_images,
+            self.config.labels_path / "main", 
+            self.config.images_path / "val", 
+            self.config.labels_path / "val"
+        )
+
+

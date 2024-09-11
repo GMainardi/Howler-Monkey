@@ -185,3 +185,5 @@ secrets.yaml
 
 runs/
 coco8/
+
+*.pt

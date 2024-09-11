@@ -2,6 +2,7 @@ import os
 import yaml
 import json
 import base64
+import shutil
 import joblib
 from typing import Any
 from pathlib import Path
@@ -173,3 +174,25 @@ def clean_scores(scores: dict) -> dict:
             new_key = ''.join([char for char in key if char.isalnum()])
             new_scores[new_key] = value
     return new_scores
+
+def copy_images(images, labels_folder, dest_image_folder, dest_label_folder):
+    logger.info(f"Copying images to {dest_image_folder} folder")
+    
+    for img_path in images:
+        img_name = os.path.basename(img_path)
+        label_name = img_name.replace('.jpg', '.txt')
+
+        shutil.copy(img_path, dest_image_folder / img_name)
+        shutil.copy(labels_folder / label_name, dest_label_folder / label_name)
+
+def clear_and_create_folder(image_folder, label_folder):
+    logger.info(f"Clearing {image_folder.name} folder")
+
+    if os.path.exists(image_folder):
+        shutil.rmtree(image_folder)
+    if os.path.exists(label_folder):
+        shutil.rmtree(label_folder)
+
+    logger.info(f"Creating {image_folder.name} folder")
+    os.makedirs(image_folder)
+    os.makedirs(label_folder)

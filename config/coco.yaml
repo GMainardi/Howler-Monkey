@@ -1,8 +1,0 @@
-path: artifacts/data_ingestion/data
-train: train/images
-val: val/images
-
-
-names:
-  0: Body
-  1: None

@@ -1,9 +1,0 @@
-{
-    "build": {
-      "dockerfile": "./Dockerfile",
-      "context": "."
-    },
-   "containerEnv": {
-      "PYTHONPATH": "/workspaces/Howler-Monkey/src"
-   }
-}       
