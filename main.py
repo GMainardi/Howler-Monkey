@@ -1,6 +1,3 @@
-from ultralytics import settings
-
-
 from HowlerMonkey.pipeline.stage_00_data_selector import DataSelectorPipeline
 from HowlerMonkey.pipeline.stage_01_create_k_fold_file import KFoldCreationPipeline
 from HowlerMonkey.pipeline.stage_02_training import ModelTrainingPipeline

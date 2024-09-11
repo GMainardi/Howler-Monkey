@@ -43,7 +43,6 @@ class ConfigurationManager:
         kfold_config = self.config.kfold
 
         create_directories([config.root_dir])
-        
         data_ingestion_config = DataIngestionConfig(
             root_dir        = Path(config.root_dir),
             n_assistant_images = config.n_assistant_images,
