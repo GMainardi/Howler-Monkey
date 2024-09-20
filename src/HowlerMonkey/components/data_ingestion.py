@@ -35,8 +35,8 @@ class DataIngestion:
         self.images_paths = glob.glob(str(self.config.images_path / 'main' / '*.jpg'))
 
     def get_assistant_images_paths(self):
-        logger.info(f"Getting assistant images paths")
-        self.assistant_images_paths = glob.glob(str(self.config.images_path / 'assistant' / '*.jpg'))
+        logger.info(f"Getting assistant {self.config.assistant_folder} images paths")
+        self.assistant_images_paths = glob.glob(str(self.config.images_path / self.config.assistant_folder / '*.jpg'))
 
     def merge_assistant_data(self):
 
@@ -61,7 +61,7 @@ class DataIngestion:
 
         copy_images(
             train_assistant_images,
-            self.config.labels_path / "assistant", 
+            self.config.labels_path / self.config.assistant_folder, 
             self.config.images_path / "train", 
             self.config.labels_path / "train"
         )
@@ -70,7 +70,7 @@ class DataIngestion:
 
         copy_images(
             val_assistant_images,
-            self.config.labels_path / "assistant", 
+            self.config.labels_path / self.config.assistant_folder, 
             self.config.images_path / "val", 
             self.config.labels_path / "val"
         )

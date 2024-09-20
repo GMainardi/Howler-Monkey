@@ -2,7 +2,7 @@ from HowlerMonkey.config.configuration import ConfigurationManager
 from HowlerMonkey.components.data_selector import DataSelector
 from HowlerMonkey import logger
 
-STAGE_NAME = "Create KFold file"
+STAGE_NAME = "Selecting images to train"
 
 
 class DataSelectorPipeline:

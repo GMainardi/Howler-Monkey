@@ -13,6 +13,7 @@ class KFoldConfig:
 class DataIngestionConfig:
     root_dir: Path
     n_assistant_images: int
+    assistant_folder: Path
     fold_file: Path
     images_path: Path
     labels_path: Path
@@ -27,7 +28,6 @@ class TrainingConfig:
     params_epochs: int
     params_batch_size: int
     model_name: str
-    device: str
 
 @dataclass(frozen=True)
 class DataSelectorConfig:

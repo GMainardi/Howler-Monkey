@@ -20,9 +20,10 @@ class Training:
             data=self.config.data_file_path,
             epochs=self.config.params_epochs,
             batch=self.config.params_batch_size,
-            project=self.config.model_name,
-            device=self.config.device,
+            project='experiments',
+            name=self.config.model_name,
             patience=50,
+            device=4
         )
 
         logger.info(f"Model trained")

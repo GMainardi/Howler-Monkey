@@ -15,18 +15,18 @@ class DataSelector:
             
             image_files = sorted(os.listdir(self.config.src_images_folder))
             label_files = sorted(os.listdir(self.config.src_labels_folder))
-            
-            
-            # Calculate the step to select N equally spaced images
-            step = max(1, len(image_files) // self.config.n_images)
-            
+
             clear_and_create_folder(
                 self.config.dest_images_folder,
                 self.config.dest_labels_folder
             )
 
-            selected_indices = range(0, len(image_files), step)
-            
+            logger.info(f"Selecing {self.config.n_images} images and labels.")
+
+            selected_indices = [
+                int(round(i * (len(image_files) - 1) / (self.config.n_images - 1)))
+                for i in range(self.config.n_images)
+            ]
 
             for idx in selected_indices:
                 image_file = image_files[idx]

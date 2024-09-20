@@ -43,9 +43,11 @@ class ConfigurationManager:
         kfold_config = self.config.kfold
 
         create_directories([config.root_dir])
+        
         data_ingestion_config = DataIngestionConfig(
             root_dir        = Path(config.root_dir),
             n_assistant_images = config.n_assistant_images,
+            assistant_folder = Path(config.assistant_folder),
             fold_file= Path(kfold_config.root_dir) / kfold_config.fold_file,
             images_path = Path(kfold_config.images_path),
             labels_path= Path(kfold_config.labels_path),
@@ -69,8 +71,7 @@ class ConfigurationManager:
             data_file_path = Path(training.data_file_path),
             params_epochs = self.params.EPOCHS,
             params_batch_size = self.params.BATCH_SIZE,
-            model_name= training.model_name,
-            device = training.device
+            model_name= training.model_name
         )
         
         return training_config
